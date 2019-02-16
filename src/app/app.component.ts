@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FacebookService, InitParams, LoginResponse } from 'ngx-facebook';
+import { FacebookService, InitParams, LoginResponse, UIParams, UIResponse } from 'ngx-facebook';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -78,5 +78,24 @@ export class AppComponent implements OnInit {
       console.log(response);
       this.me = of(response);
     });
+  }
+
+  /**
+   * シェア
+   */
+  share(url: string): void {
+    const params: UIParams = {
+      href: url,
+      method: 'share'
+    };
+    this.fb.ui(params)
+      .then((response: UIResponse) => {
+        // シェア
+        console.log('share success', response);
+      })
+      .catch((response: any) => {
+        // キャンセル
+        console.log('share cancel', response);
+      });
   }
 }
