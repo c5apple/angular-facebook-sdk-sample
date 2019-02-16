@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   facebook: {
     appId: '12345678',
+    cookie: true,
     xfbml: true,
     version: 'v2.8'
   }

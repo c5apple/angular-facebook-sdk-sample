@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FacebookService, InitParams } from 'ngx-facebook';
-import { environment } from 'src/environments/environment.prod';
+import { FacebookService, InitParams, LoginResponse } from 'ngx-facebook';
+import { Observable, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -8,12 +9,60 @@ import { environment } from 'src/environments/environment.prod';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'angular-facebook-sdk-sample';
 
-  constructor(private fb: FacebookService) {
-    fb.init(environment.facebook);
+  /** ログイン状態 */
+  loginResponse: Observable<LoginResponse>;
+
+  constructor(private fb: FacebookService) { }
+
+  ngOnInit(): void {
+    // Facebook接続
+    this.fb.init(environment.facebook as InitParams);
+
+    // ログインチェック
+    this.getLoginStatus();
   }
 
-  ngOnInit() {
+  /**
+   * ログインチェック
+   */
+  getLoginStatus() {
+    this.fb.getLoginStatus().then((response: LoginResponse) => {
+      // ログイン状態取得
+      this.loginResponse = of(response);
+      console.log('getLoginStatus', response);
+    });
+  }
+
+  /**
+   * ログイン
+   */
+  loginWithFacebook() {
+    this.fb.login()
+      .then((response: LoginResponse) => {
+        // ログイン成功
+        this.loginResponse = of(response);
+        console.log('login success', response);
+      })
+      .catch((error: any) => {
+        // キャンセルorエラー
+        console.error('login cancel', error);
+      });
+  }
+
+  /**
+   * ログアウト
+   */
+  logoutWithFacebook() {
+    this.fb.logout()
+      .then((response: LoginResponse) => {
+        // ログアウト成功
+        this.loginResponse = of(response);
+        console.log('logout success', response);
+      })
+      .catch((response: any) => {
+        // エラー
+        console.error('logout error', response);
+      });
   }
 }
