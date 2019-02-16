@@ -13,6 +13,9 @@ export class AppComponent implements OnInit {
   /** ログイン状態 */
   loginResponse: Observable<LoginResponse>;
 
+  /** アカウント */
+  me: Observable<{ name: string, id: string }>;
+
   constructor(private fb: FacebookService) { }
 
   ngOnInit(): void {
@@ -64,5 +67,16 @@ export class AppComponent implements OnInit {
         // エラー
         console.error('logout error', response);
       });
+  }
+
+  /**
+   * 名前を取得
+   */
+  getMe() {
+    this.fb.api('/me', 'get', {}).then(response => {
+      // API実行
+      console.log(response);
+      this.me = of(response);
+    });
   }
 }

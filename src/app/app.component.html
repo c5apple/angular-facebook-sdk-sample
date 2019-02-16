@@ -1,14 +1,26 @@
 <main role="main">
   <h1>Facebook</h1>
   <ul>
-    <li>status:&nbsp;{{(loginResponse | async)?.status}}</li>
-    <li>authResponse:&nbsp;
+    <li>LoginResponse:&nbsp;
       <ul>
-        <li>accessToken:&nbsp;{{(loginResponse | async)?.authResponse.accessToken}}</li>
-        <li>expiresIn:&nbsp;{{(loginResponse | async)?.authResponse.expiresIn}}</li>
-        <li>signedRequest:&nbsp;{{(loginResponse | async)?.authResponse.signedRequest}}</li>
-        <li>userID:&nbsp;{{(loginResponse | async)?.authResponse.userID}}</li>
-        <li>grantedScopes:&nbsp;{{(loginResponse | async)?.authResponse.grantedScopes}}</li>
+        <li>status:&nbsp;{{(loginResponse | async)?.status}}</li>
+        <li>authResponse:&nbsp;
+          <ul>
+            <li>accessToken:&nbsp;{{(loginResponse | async)?.authResponse.accessToken}}</li>
+            <li>expiresIn:&nbsp;{{(loginResponse | async)?.authResponse.expiresIn}}</li>
+            <li>signedRequest:&nbsp;{{(loginResponse | async)?.authResponse.signedRequest}}</li>
+            <li>userID:&nbsp;{{(loginResponse | async)?.authResponse.userID}}</li>
+            <li>grantedScopes:&nbsp;{{(loginResponse | async)?.authResponse.grantedScopes}}</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <ul>
+    <li>/me:&nbsp;
+      <ul>
+        <li>name:&nbsp;{{(me | async)?.name}}</li>
+        <li>id:&nbsp;{{(me | async)?.id}}</li>
       </ul>
     </li>
   </ul>
@@ -17,5 +29,8 @@
   </p>
   <p>
     <button (click)="logoutWithFacebook()" [disabled]="(loginResponse | async)?.status !== 'connected'">ログアウト</button>
+  </p>
+  <p>
+    <button (click)="getMe()" [disabled]="(loginResponse | async)?.status !== 'connected'">名前を取得</button>
   </p>
 </main>
