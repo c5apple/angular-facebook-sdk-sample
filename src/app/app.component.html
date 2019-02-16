@@ -31,7 +31,7 @@
       <ul>
         <li>status:&nbsp;{{(loginResponse | async)?.status}}</li>
         <li>authResponse:&nbsp;
-          <ul>
+          <ul *ngIf="(loginResponse | async)?.authResponse">
             <li>accessToken:&nbsp;{{(loginResponse | async)?.authResponse.accessToken}}</li>
             <li>expiresIn:&nbsp;{{(loginResponse | async)?.authResponse.expiresIn}}</li>
             <li>signedRequest:&nbsp;{{(loginResponse | async)?.authResponse.signedRequest}}</li>
