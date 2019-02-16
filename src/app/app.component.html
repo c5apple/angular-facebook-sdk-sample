@@ -1,7 +1,21 @@
-<div>
-  <p>status:{{(loginResponse | async)?.status}}</p>
-  <p><button (click)="loginWithFacebook()"
-      [disabled]="(loginResponse | async)?.status === 'connected'">Facebookログイン</button></p>
-  <p><button (click)="logoutWithFacebook()"
-      [disabled]="(loginResponse | async)?.status !== 'connected'">Facebookログアウト</button></p>
-</div>
+<main role="main">
+  <h1>Facebook</h1>
+  <ul>
+    <li>status:&nbsp;{{(loginResponse | async)?.status}}</li>
+    <li>authResponse:&nbsp;
+      <ul>
+        <li>accessToken:&nbsp;{{(loginResponse | async)?.authResponse.accessToken}}</li>
+        <li>expiresIn:&nbsp;{{(loginResponse | async)?.authResponse.expiresIn}}</li>
+        <li>signedRequest:&nbsp;{{(loginResponse | async)?.authResponse.signedRequest}}</li>
+        <li>userID:&nbsp;{{(loginResponse | async)?.authResponse.userID}}</li>
+        <li>grantedScopes:&nbsp;{{(loginResponse | async)?.authResponse.grantedScopes}}</li>
+      </ul>
+    </li>
+  </ul>
+  <p>
+    <button (click)="loginWithFacebook()" [disabled]="(loginResponse | async)?.status === 'connected'">ログイン</button>
+  </p>
+  <p>
+    <button (click)="logoutWithFacebook()" [disabled]="(loginResponse | async)?.status !== 'connected'">ログアウト</button>
+  </p>
+</main>
