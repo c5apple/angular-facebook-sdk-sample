@@ -1,7 +1,33 @@
-<main role="main">
-  <h1>Facebook</h1>
-  <ul>
-    <li>LoginResponse:&nbsp;
+<section class="hero is-link">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">Angular Facebook SDK Sample</h1>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="content">
+      <div class="buttons">
+        <button type="button" class="button is-primary" (click)="loginWithFacebook()"
+          [disabled]="(loginResponse | async)?.status === 'connected'">ログイン</button>
+        <button type="button" class="button is-primary" (click)="logoutWithFacebook()"
+          [disabled]="(loginResponse | async)?.status !== 'connected'">ログアウト</button>
+      </div>
+      <p>
+        <button type="button" class="button is-primary" (click)="getMe()"
+          [disabled]="(loginResponse | async)?.status !== 'connected'">名前を取得</button>
+      </p>
+      <div class="field has-addons">
+        <div class="control">
+          <input type="url" #url class="input" value="https://github.com/c5apple/angular-facebook-sdk-sample">
+        </div>
+        <div class="control">
+          <button type="button" class="button is-primary" (click)="share(url.value)">シェア</button>
+        </div>
+      </div>
+
+      <h2>LoginResponse:</h2>
       <ul>
         <li>status:&nbsp;{{(loginResponse | async)?.status}}</li>
         <li>authResponse:&nbsp;
@@ -14,27 +40,17 @@
           </ul>
         </li>
       </ul>
-    </li>
-  </ul>
-  <ul>
-    <li>/me:&nbsp;
+
+      <h2>/me:</h2>
       <ul>
         <li>name:&nbsp;{{(me | async)?.name}}</li>
         <li>id:&nbsp;{{(me | async)?.id}}</li>
       </ul>
-    </li>
-  </ul>
-  <p>
-    <button (click)="loginWithFacebook()" [disabled]="(loginResponse | async)?.status === 'connected'">ログイン</button>
-  </p>
-  <p>
-    <button (click)="logoutWithFacebook()" [disabled]="(loginResponse | async)?.status !== 'connected'">ログアウト</button>
-  </p>
-  <p>
-    <button (click)="getMe()" [disabled]="(loginResponse | async)?.status !== 'connected'">名前を取得</button>
-  </p>
-  <p>
-    <input type="url" #url>
-    <button (click)="share(url.value)">シェア</button>
-  </p>
-</main>
+    </div>
+  </div>
+</section>
+<footer class="footer">
+  <div class="content has-text-centered">
+    <p>&copy; 2019 Angular Facebook SDK Sample</p>
+  </div>
+</footer>
