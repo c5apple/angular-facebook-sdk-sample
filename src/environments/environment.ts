@@ -3,7 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  facebook: {
+    appId: '12345678',
+    xfbml: true,
+    version: 'v2.8'
+  }
 };
 
 /*
